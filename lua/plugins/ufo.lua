@@ -6,6 +6,19 @@ return {
         "nvim-treesitter/nvim-treesitter",
     },
     opts = {
+        close_fold_kinds_for_ft = {
+            default = { "import_statement", "import_declaration", "use_declaration" },
+            rust = { "use_declaration" },
+            go = { "import_declaration" },
+            python = { "import_statement", "import_from_statement" },
+            javascript = { "import_statement" },
+            javascriptreact = { "import_statement" },
+            typescript = { "import_statement" },
+            typescriptreact = { "import_statement" },
+            svelte = { "import_statement" },
+            haskell = { "import" },
+            dart = { "import_or_export" },
+        },
         fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
             local newVirtText = {}
             local suffix = (" 󰁂 %d "):format(endLnum - lnum)
