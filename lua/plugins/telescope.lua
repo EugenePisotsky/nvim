@@ -6,15 +6,31 @@ return {
     local telescope = require("telescope")
     local builtin = require("telescope.builtin")
 
+    -- Drop-down keeps prompt attached to results, full layout uses boxed borders.
+    local sharp_dropdown_borders = {
+      prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
+      preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+    }
+    local sharp_full_borders = {
+      prompt = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+      results = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+      preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+    }
+
     telescope.setup({
+      defaults = {
+        -- Make all Telescope borders sharp by default (applies to any picker/extension)
+        borderchars = sharp_full_borders,
+      },
       pickers = {
         find_files = {
           theme = "dropdown",
-          borderchars = {
-            prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
-            results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
-            preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
-          },
+          borderchars = sharp_dropdown_borders,
+        },
+        buffers = {
+          theme = "dropdown",
+          borderchars = sharp_dropdown_borders,
         },
       },
     })

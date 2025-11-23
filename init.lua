@@ -1,8 +1,26 @@
 vim.opt.number = true        -- absolute line numbers
 vim.opt.fillchars:append({ diff = "╱" }) -- nicer diff filler (used by diffview)
+vim.opt.signcolumn = "yes"
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
 
 vim.diagnostic.config({
   virtual_text = true,
 })
+
+vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { desc = "Go to implementation" })
+vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+
+vim.keymap.set("n", "<leader>x", ":bp | bd #<CR>", { desc = "Close buffer, keep layout" })
+
+vim.keymap.set("n", "gl", vim.diagnostic.open_float)
+
+-- Move selection down
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+
+-- Move selection up
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 require("config.lazy")

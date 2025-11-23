@@ -2,6 +2,8 @@ return {
   "hrsh7th/nvim-cmp",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-cmdline",
@@ -27,12 +29,27 @@ return {
       }),
     })
 
-    -- Enable completion in the command-line (e.g. :DiffviewFileHistory)
-    cmp.setup.cmdline(":", {
+    -- `/` search completion from current buffer
+    cmp.setup.cmdline("/", {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
-        { name = "cmdline" },
+        { name = "buffer" },
       },
+    })
+
+    -- `:` command-line completion (paths + commands)
+    cmp.setup.cmdline(":", {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = "path" },
+      }, {
+        {
+          name = "cmdline",
+          option = {
+            ignore_cmds = { "Man", "!" },
+          },
+        },
+      }),
     })
   end,
 }
