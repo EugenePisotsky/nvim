@@ -15,10 +15,18 @@ return {
 
     diffview.setup({
       enhanced_diff_hl = true,
+      use_icons = false, -- hide devicons in file list (folders/files)
+      signs = {
+        -- use matching triangles with spacing for folded/open rows
+        fold_closed = "▸ ",
+        fold_open = "▾ ",
+      },
     })
 
     -- Make the delete filler (////) subtle and match your palette
     vim.api.nvim_set_hl(0, "DiffviewDiffDeleteDim", { fg = "#414559", bg = "NONE" })
+    -- Keep folder labels at normal foreground intensity
+    vim.api.nvim_set_hl(0, "DiffviewFolderName", { link = "Normal" })
 
     vim.keymap.set("n", "<leader>dv", "<cmd>DiffviewOpen<CR>", { desc = "Diffview: Open" })
     vim.keymap.set("n", "<leader>df", "<cmd>DiffviewFileHistory<CR>", { desc = "Diffview: File history" })

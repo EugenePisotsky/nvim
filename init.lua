@@ -5,9 +5,19 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
+vim.opt.clipboard:append("unnamedplus") -- use system clipboard (pbcopy/pbpaste on macOS)
+vim.opt.autoread = true
+vim.opt.updatetime = 2000
 
 vim.diagnostic.config({
   virtual_text = true,
+})
+
+-- Reload files changed outside of Neovim.
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "TermLeave" }, {
+  callback = function()
+    vim.cmd("checktime")
+  end,
 })
 
 vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { desc = "Go to implementation" })
