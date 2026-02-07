@@ -1,3 +1,6 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 vim.opt.number = true        -- absolute line numbers
 vim.opt.fillchars:append({ diff = "╱" }) -- nicer diff filler (used by diffview)
 vim.opt.signcolumn = "yes"
@@ -13,15 +16,14 @@ vim.diagnostic.config({
   virtual_text = true,
 })
 
+require("config.lsp").setup()
+
 -- Reload files changed outside of Neovim.
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "TermLeave" }, {
   callback = function()
     vim.cmd("checktime")
   end,
 })
-
-vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 
 vim.keymap.set("n", "<leader>x", ":bp | bd #<CR>", { desc = "Close buffer, keep layout" })
 
